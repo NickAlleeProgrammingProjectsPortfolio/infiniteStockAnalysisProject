@@ -1,0 +1,16 @@
+from selenium import webdriver
+browser = webdriver.Firefox()
+browser.get('https://www.guerrillamail.com/inbox')
+browser.find_element_by_xpath('//*[@id="use-alias"]').click()
+emailNameElement = browser.find_element_by_xpath('//*[@id="email-widget"]').text
+browser.execute_script("window.open('about:blank', 'tab2');")
+browser.switch_to_window("tab2")
+browser.get('https://www.vectorvest.com/stockanalysis/')
+emailEnterElement = browser.find_element_by_xpath('//*[@id="body_stockAnalysisContainer_stockLookupWidget_txtEmail"]')
+emailEnterElement.send_keys(emailNameElement)
+tickerElement = browser.find_element_by_xpath('//*[@id="body_stockAnalysisContainer_stockLookupWidget_txtSymbol"]')
+ticker = input("what ticker would you like an analysis on?")
+tickerElement.send_keys(ticker)
+buttonClickElement = browser.find_element_by_xpath('//*[@id="body_stockAnalysisContainer_stockLookupWidget_btnSubmit"]')
+buttonClickElement.click()
+print("done")
